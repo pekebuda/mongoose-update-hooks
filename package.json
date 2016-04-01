@@ -1,0 +1,27 @@
+{
+  "name": "mongoose-update-hooks",
+  "version": "0.1.0",
+  "description": "Add hooks triggerable upon previously-saved document save",
+  "main": "index.js",
+  "author": "Fernando Diaz <peke_buda@hotmail.com>",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "mongoose",
+    "plugin",
+    "hook"
+  ],
+  "dependencies": {
+       "lodash": "4.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pekebuda/mongoose-update-hooks"
+  },
+  "bugs": {
+    "url": "https://github.com/pekebuda/mongoose-update-hooks/issues"
+  }
+}

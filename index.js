@@ -5,35 +5,12 @@ var async       = require('async')
 
 function plugin(schema) {
     /****************************************************************
-     * Setup
-     * En el seno de las funciones definidas, `self` se refiere al 
-     * documento mismo sobre el cual se opera las `hooks`. 
-     * 
-     */
-    schema.pre('validate', function(next){
-            var self = this;
-            this._wasNew = this.isNew;
-            if (!this.isNew) this.runPreMethods(schema.preUpdateMethods, self, ()=>next() );
-            return;
-        }
-    );
-    schema.post('save', function(){
-            var self = this;
-            if (!this._wasNew) this.runPostMethods(schema.postUpdateMethods, self);
-            return;
-        }
-    );
-    
-    
-    
-    /****************************************************************
-     * Pre-Hooks
+     * PRE HOOKS
      * These hooks run before an instance has been updated
      * Puesto que el `iteree` consiste meramente en la ejecucion del 
      * metodo pertinente en cada una de las iteraciones, los hooks 
      * agregados a la coleccion de `pre-create` deben adecuarse a la 
      * signatura `function(doc, cb)`
-     * 
      */
     schema.preUpdateMethods = [];
     schema.preUpdate = function(fn){ schema.preUpdateMethods.push(fn) };
@@ -51,7 +28,7 @@ function plugin(schema) {
     
     
     /****************************************************************
-     * Post-Hooks
+     * POST HOOKS
      * These hooks run after an instance has been updated
      * Puesto que el `iteree` consiste meramente en la ejecucion del 
      * metodo pertinente en cada una de las iteraciones, los hooks 
@@ -70,6 +47,27 @@ function plugin(schema) {
             }
         );
     };
+    
+    
+    
+    /****************************************************************
+     * SETUP
+     * En el seno de las funciones definidas, `self` se refiere al 
+     * documento mismo sobre el cual se opera las `hooks`. 
+     */
+    schema.pre('validate', function(next){
+            const DOC = this;
+            DOC._wasNew = DOC.isNew;
+            if (!DOC.isNew) DOC.runPreMethods(schema.preUpdateMethods, DOC, ()=>next() );
+            return;
+        }
+    );
+    schema.post('save', function(){
+            const DOC = this;
+            if (!DOC._wasNew) DOC.runPostMethods(schema.postUpdateMethods, DOC);
+            return;
+        }
+    );
 }
 
 

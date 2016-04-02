@@ -18,10 +18,7 @@ function plugin(schema) {
         async.eachSeries(
             methods,
             function(method, signal){ method(doc, signal) }, 
-            function(err){
-                if (err){ throw err; }
-                callback();
-            }
+            callback
         );
     };
     
@@ -52,13 +49,13 @@ function plugin(schema) {
     
     /****************************************************************
      * SETUP
-     * En el seno de las funciones definidas, `self` se refiere al 
-     * documento mismo sobre el cual se opera las `hooks`. 
+     * En el seno de las funciones definidas, `DOC` se refiere al 
+     * documento mismo sobre el cual operan los `hooks`. 
      */
     schema.pre('validate', function(next){
             const DOC = this;
             DOC._wasNew = DOC.isNew;
-            if (!DOC.isNew) DOC.runPreMethods(schema.preUpdateMethods, DOC, ()=>next() );
+            if (!DOC.isNew) DOC.runPreMethods(schema.preUpdateMethods, DOC, next );
             return;
         }
     );

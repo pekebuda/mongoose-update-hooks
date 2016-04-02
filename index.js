@@ -14,7 +14,7 @@ function plugin(schema) {
      */
     schema.preUpdateMethods = [];
     schema.preUpdate = function(fn){ schema.preUpdateMethods.push(fn) };
-    schema.methods.runPreMethods = function(methods, doc, callback){
+    schema.methods.runPreUpdateMethods = function(methods, doc, callback){
         async.eachSeries(
             methods,
             function(method, signal){ method(doc, signal) }, 
@@ -35,7 +35,7 @@ function plugin(schema) {
      */
     schema.postUpdateMethods = [];
     schema.postUpdate = function(fn){ schema.postUpdateMethods.push(fn) };
-    schema.methods.runPostMethods = function(methods, doc){
+    schema.methods.runPostUpdateMethods = function(methods, doc){
         async.eachSeries(
             methods,
             function(method, signal){ method(doc, signal) }, 
@@ -55,13 +55,13 @@ function plugin(schema) {
     schema.pre('validate', function(next){
             const DOC = this;
             DOC._wasNew = DOC.isNew;
-            if (!DOC.isNew) DOC.runPreMethods(schema.preUpdateMethods, DOC, next );
+            if (!DOC.isNew) DOC.runPreUpdateMethods(schema.preUpdateMethods, DOC, next );
             return;
         }
     );
     schema.post('save', function(){
             const DOC = this;
-            if (!DOC._wasNew) DOC.runPostMethods(schema.postUpdateMethods, DOC);
+            if (!DOC._wasNew) DOC.runPostUpdateMethods(schema.postUpdateMethods, DOC);
             return;
         }
     );

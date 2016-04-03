@@ -1,6 +1,6 @@
 {
   "name": "mongoose-update-hooks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add hooks triggerable upon previously-saved document save",
   "main": "index.js",
   "author": "Fernando Diaz <peke_buda@hotmail.com>",
@@ -12,7 +12,7 @@
     "hook"
   ],
   "dependencies": {
-       "lodash": "4.6.1"
+    "lodash": "4.6.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

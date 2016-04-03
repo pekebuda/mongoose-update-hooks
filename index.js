@@ -55,14 +55,14 @@ function plugin(schema) {
     schema.pre('validate', function(next){
             const DOC = this;
             DOC._wasNew = DOC.isNew;
-            if (!DOC.isNew) DOC.runPreUpdateMethods(schema.preUpdateMethods, DOC, next );
-            return;
+            if (!DOC.isNew) return DOC.runPreUpdateMethods(schema.preUpdateMethods, DOC, next );
+            else return next();
         }
     );
-    schema.post('save', function(){
+    schema.post('save', function(doc){
             const DOC = this;
-            if (!DOC._wasNew) DOC.runPostUpdateMethods(schema.postUpdateMethods, DOC);
-            return;
+            if (!DOC._wasNew) return DOC.runPostUpdateMethods(schema.postUpdateMethods, DOC);
+            else return;
         }
     );
 }

@@ -5,6 +5,16 @@ var async       = require('async')
 
 function plugin(schema) {
     /****************************************************************
+     * wasNew
+     * Campo cuyo examen permite determinar si los metodos definidos
+     * mediante schema#preCreate() deben ser ejecutados (documentos 
+     * actualizados) o no (de nueva creacion)
+     */
+    schema.add({"_wasNew": Boolean});
+    
+    
+    
+    /****************************************************************
      * PRE HOOKS
      * These hooks run before an instance has been updated
      * Puesto que el `iteree` consiste meramente en la ejecucion del 
@@ -45,7 +55,14 @@ function plugin(schema) {
     
     
     /****************************************************************
-     * SETUP
+     * HOOKS TRIGGERING SETUP 
+     * Puesto que no existe ninguna funcion 'update' que pueda ser 
+     * 'escuchada' al estilo de `init`, `save`... la forma de provocar 
+     * el desencadenamiento de los hooks asociados al evento `create` 
+     * es evaluar si se trata de un documento de nueva creacion, y si 
+     * lo es, ejecutar los hooks `pre-` en el seno a su vez de un hook 
+     * `pre-validate` y los `post-` de un hook `post-save`
+     * 
      * En el seno de las funciones definidas, `DOC` se refiere al 
      * documento mismo sobre el cual operan los `hooks`. 
      */

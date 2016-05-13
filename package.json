@@ -1,6 +1,6 @@
 {
   "name": "mongoose-update-hooks",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Add hooks triggerable upon previously-saved document save",
   "main": "index.js",
   "author": "Fernando Diaz <peke_buda@hotmail.com>",

@@ -5,16 +5,6 @@ var async       = require('async')
 
 function plugin(schema) {
     /****************************************************************
-     * wasNew
-     * Campo cuyo examen permite determinar si los metodos definidos
-     * mediante schema#preUpdate() deben ser ejecutados (documentos 
-     * actualizados) o no (de nueva creacion)
-     */
-    schema.add({"_wasNew": Boolean});
-    
-    
-    
-    /****************************************************************
      * PRE HOOKS
      * These hooks run before an instance has been updated
      * Puesto que el `iteree` consiste meramente en la ejecucion del 
